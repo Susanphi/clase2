@@ -1,0 +1,22 @@
+#Importo el cvs a traves de el path de mac
+import pandas as pd
+import os
+working_directory = os.getcwd()
+print (working_directory)
+
+#Concateno con el csv con la especificación de que los separadores son comas
+path = working_directory + "/data/actividad2.csv"
+taxis = pd.read_csv(path, delimiter =',')
+
+#Reviso que se visualice bien el dataset
+taxis.head()
+
+#CONSIGNA 1: Obtener el número de taxis distintos que han hecho un viaje de entre 20 y 44 € y hayan pagado con “Credit Card”
+valor_viaje1 = (taxis['taxi_id'].where(taxis['trip_total'] >= 20, taxis['trip_total'] <= 44))
+valor_viaje1 = valor_viaje1.drop_duplicates()
+print (valor_viaje1)
+
+#CONSIGNA 2: Obtener el número de taxis distintos que han hecho un viaje que hayan pagado en extras menos de 10€ y más de 60€ y el tipo de pago sea “Cash”
+valor_viaje2 = (taxis['taxi_id'].where(taxis['extras'] < 10, taxis['extras'] > 60))
+valor_viaje2 = valor_viaje.drop_duplicates()
+print (valor_viaje2)
