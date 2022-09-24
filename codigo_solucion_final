@@ -1,0 +1,41 @@
+### Importo el cvs a traves de el path de mac
+import pandas as pd
+import os
+working_directory = os.getcwd()
+print (working_directory)
+
+### Concateno con el csv con la especificación de que los separadores son comas
+path = working_directory + "/data/actividad2.csv"
+taxis = pd.read_csv(path, delimiter =',')
+
+### Reviso que se visualice bien el dataset
+taxis.head()
+
+### Consulta 1
+### Obtener el número de taxis distintos que han hecho un viaje de entre 20 y 44 € y hayan pagado con “Credit Card” (pista: utilizar el valor taxi_id, en la plataforma de pago tened en cuenta las mayúsculas y las minúsculas)
+### Se crea un nuevo df que se va a filtrar por la condición de pago con "Credit Card"
+taxis_consulta1 = taxis.copy(deep=True)
+taxis_creditcard = taxis_consulta1.query('payment_type == "Credit Card"')
+
+### Aplicar los filtros de precio en el valor del viaje
+df1 = taxis_creditcard[(taxis_creditcard['trip_total'] >= 20) & (taxis_creditcard['trip_total'] <= 44)]
+
+df1.head()
+
+### Valores unicos de ese df con los filtros
+df1.nunique()
+
+### La respuesta sería: Son 46 taxis distintos los que han hecho un viaje de entre 20 y 44 € y que se abonaron con tarjeta de credito
+
+### Consulta 2
+### Obtener el número de taxis distintos que han hecho un viaje que hayan pagado en extras menos de 10€ y más de 60€ y el tipo de pago sea “Cash” (pista: utiliza el valor taxi_id, en el método de pago tened en cuenta las mayúsculas y las minúsculas)
+
+### Se crea un nuevo df que se va a filtrar por la condición de pago con "Cash"
+taxis_consulta2 = taxis.copy(deep=True)
+taxis_cash = taxis_consulta2.query('payment_type == "Cash"')
+
+### Aplicar los filtros de precio en el valor del viaje
+df2 = taxis_cash[(taxis_cash['extras'] < 10) & (taxis_cash['extras'] > 60)]
+df2.head()
+
+### La respuesta sería: No hay taxis distintos que hayan realizado un viaje pagado en efectivo que hayan tenido un extra menor de 10€ y mayor de 60€.
